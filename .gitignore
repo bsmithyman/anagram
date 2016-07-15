@@ -90,3 +90,6 @@ ENV/
 
 # output
 output.txt
+
+# Coverage
+cover

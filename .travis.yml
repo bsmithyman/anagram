@@ -1,0 +1,18 @@
+language: python
+python:
+  - 3.3
+  - 3.4
+  - 3.5
+sudo: false
+
+# Run test
+script:
+  - nosetests --with-cov --cov anagram
+
+# Calculate coverage
+after_success:
+  - coveralls
+
+notifications:
+  email:
+    - brendan@bitsmithy.net

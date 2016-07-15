@@ -1,23 +1,9 @@
 """anagram.py: the wrong way to solve a problem"""
 
 import collections
-import functools
 import imp
 import os
 import sys
-
-
-def chunk(lst, n):
-    """Iterate over n chunks"""
-    chunksize = len(lst) // n
-    for i in range(n):
-        yield lst[i*chunksize:(i+1)*chunksize] if i < (n - 1) else lst[i*chunksize:]
-
-def track(lst):
-    """Return a Tracker initialized with the list"""
-    tracker = Tracker()
-    tracker(lst)
-    return tracker
 
 
 class Anagram(object):
@@ -59,18 +45,6 @@ class Originals(set):
         self.add(word)
         return word.baseform
 
-    def __add__(self, other):
-        """Implement 'self + other'"""
-        instance = Originals(self)
-        instance.update(other)
-        return instance
-
-    def __radd__(self, other):
-        """Implement 'other + self'"""
-        instance = Originals(other)
-        instance.update(self)
-        return instance
-
 
 class Tracker(collections.Counter):
     """Tracker to collect anagrams"""
@@ -88,7 +62,8 @@ class Tracker(collections.Counter):
         """Implement 'self + other'"""
         result = super().__add__(other)
         result.originals = {key: self.originals.get(key, set()) + other.originals.get(key, set())
-                            for key in set(self.originals.keys() + other.originals.keys())}
+                            for key in set(list(self.originals.keys()) + list(other.originals.keys()))}
+        return result
 
     def __str__(self):
         """Return a string representation"""
@@ -110,7 +85,6 @@ class AnagramImporter(object):
             filename = os.path.join(dirname, '.'.join((fullname, self.extension)))
             if os.path.isfile(filename):
                 return AnagramLoader(filename, self.extension)
-        return None
 
 
 class AnagramLoader(object):
