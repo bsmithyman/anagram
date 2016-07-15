@@ -6,7 +6,7 @@ python:
 sudo: false
 
 install:
-  - pip install codecov
+  - pip install codecov coveralls
 
 script:
   - nosetests --with-coverage
