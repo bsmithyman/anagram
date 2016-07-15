@@ -5,13 +5,16 @@ python:
   - 3.5
 sudo: false
 
-# Run test
+install:
+  - pip install codecov
+
 script:
-  - nosetests --with-cov --cov anagram
+  - nosetests --with-coverage
 
 # Calculate coverage
 after_success:
   - coveralls
+  - codecov
 
 notifications:
   email:
