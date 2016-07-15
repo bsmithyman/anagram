@@ -11,5 +11,5 @@ class AnagramTest(unittest.TestCase):
         """Make sure that things are working as expected"""
 
         import wordlist
-        assert wordlist.txt
+        assert str(wordlist.txt)
 
