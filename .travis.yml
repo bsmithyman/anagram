@@ -6,10 +6,10 @@ python:
 sudo: false
 
 install:
-  - pip install codecov coveralls
+  - pip install nose-cov codecov python-coveralls
 
 script:
-  - nosetests --with-coverage
+  - nosetests --with-cov --cov anagram
 
 # Calculate coverage
 after_success:
